@@ -1,14 +1,13 @@
 package solutions
 
+import (
+	"fmt"
+	"sort"
+)
+
 //https://leetcode.com/problems/find-median-from-data-stream/submissions/
 
-/*
-Output
-[null,null,-1.00000,null,-1.50000,null,-2.00000,null,-3.50000,null,-3.00000]
-Expected
-[null,null,-1.00000,null,-1.50000,null,-2.00000,null,-2.50000,null,-3.00000]
-*/
-
+// this was to slow :(, time to learn wat a heap map is :)
 type MedianFinder struct {
 	nums []int
 }
@@ -22,13 +21,17 @@ func (m *MedianFinder) AddNum(num int) {
 }
 
 func (m *MedianFinder) FindMedian() float64 {
+	sort.Ints(m.nums)
+
 	l := len(m.nums)
+	p := l / 2
 
 	if l%2 != 0 {
-		return float64(m.nums[l/2])
+		fmt.Println("odd", m.nums)
+		return float64(m.nums[p])
 	}
 
-	return float64(m.nums[l-2]+m.nums[l-1]) / 2
+	return float64(m.nums[p-1]+m.nums[p]) / 2
 }
 
 /**
