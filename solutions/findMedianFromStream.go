@@ -10,6 +10,7 @@ import (
 // this was to slow :(, time to learn wat a heap map is :)
 type MedianFinder struct {
 	nums []int
+	sort bool
 }
 
 func Constructor() MedianFinder {
@@ -18,10 +19,14 @@ func Constructor() MedianFinder {
 
 func (m *MedianFinder) AddNum(num int) {
 	m.nums = append(m.nums, num)
+	m.sort = true
 }
 
 func (m *MedianFinder) FindMedian() float64 {
-	sort.Ints(m.nums)
+	if m.sort {
+		sort.Ints(m.nums)
+		m.sort = false
+	}
 
 	l := len(m.nums)
 	p := l / 2
